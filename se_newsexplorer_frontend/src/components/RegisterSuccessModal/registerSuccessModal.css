@@ -1,0 +1,29 @@
+.registerSuccess__container {
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 2px;
+}
+
+.registerSuccess__title {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-xl);
+  line-height: var(--lh-xl);
+  font-weight: var(--font-weight-black);
+  margin: 9px 0 14px 0;
+}
+
+.registerSuccess__signInBtn--loggedOut {
+  border: 2px solid rgba(255, 255, 255);
+  border-radius: 100px;
+  background: transparent;
+  color: #2f71e5;
+  font-family: var(--font-family-alt);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+}

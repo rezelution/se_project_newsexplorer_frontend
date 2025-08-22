@@ -1,0 +1,228 @@
+.card {
+  max-width: 400px;
+  height: 576px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+}
+
+.card__keyword-and-delete-icon {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  right: 24px;
+  top: 24px;
+  width: 352px;
+  text-align: center;
+}
+
+.card__keywords {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  height: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  max-width: 290px;
+}
+
+.card__image {
+  max-width: 400px;
+  height: 272px;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+}
+
+.card__content {
+  padding: 24px 24px;
+  margin: 0;
+}
+
+.card__date {
+  font-family: var(--font-family-alt);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  color: #b6bcbf;
+  margin: 0 0 12px;
+}
+
+.card__title {
+  font-family: var(--font-family-slab);
+  font-size: var(--fs-xxl);
+  line-height: var(--lh-xxl);
+  font-weight: var(--font-weight-regular);
+  color: #000;
+  margin: 0 0 16px;
+  height: 60px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.card__description {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: var(--font-weight-regular);
+  color: #000;
+  margin: 0 0 18px;
+  height: 110px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.card__source {
+  font-family: var(--font-family-slab);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: var(--font-weight-bold);
+  color: #b6bcbf;
+  text-transform: uppercase;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card__bookmark-wrapper {
+  display: flex;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+
+.card__bookmark {
+  background-image: url("../../assets/normal_bookmark.svg");
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+}
+
+.card__bookmark.logged-in:hover {
+  background-image: url("../../assets/hover_bookmark.svg");
+}
+
+.card__bookmark--saved {
+  background-image: url("../../assets/saved_bookmark.svg");
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+}
+
+.card__bookmark-message {
+  width: 182px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  font-family: var(--font-family-base);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-xs);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card__bookmark-wrapper:hover .card__bookmark-message {
+  opacity: 1;
+}
+
+.card__bookmark-delete {
+  background-image: url("../../assets/delete_Icon.svg");
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  background-color: transparent;
+}
+
+.card__bookmark-delete:hover {
+  background-image: url("../../assets/delete_Icon_black.svg");
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 224px;
+    height: auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #fff;
+    position: relative;
+  }
+
+  .card__keyword-and-delete-icon {
+    display: flex;
+    right: 8px;
+    top: 8px;
+    max-width: 208px;
+    text-align: center;
+  }
+
+  .card__image {
+    max-width: 224px;
+    height: 150px;
+    margin: 0;
+    display: block;
+  }
+
+  .card__content {
+    padding: 16px 16px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .card__title {
+    font-family: var(--font-family-slab);
+    font-size: var(--fs-lT);
+    line-height: var(--lh-lT);
+    height: 72px;
+  }
+
+  .card__description {
+    font-size: var(--fs-base);
+    line-height: var(--lh-base);
+    height: 88px;
+  }
+
+  .card__source {
+    font-size: var(--fs-mT);
+    line-height: var(--lh-mT);
+  }
+
+  .card__bookmark-wrapper {
+    right: 8px;
+    top: 8px;
+  }
+
+  .card__bookmark-message {
+    width: 164px;
+  }
+
+  .card__bookmark-delete {
+    background-image: url("../../assets/delete_Icon.svg");
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+  }
+}

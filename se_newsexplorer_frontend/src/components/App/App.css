@@ -1,5 +1,5 @@
 .page {
-  background-color: #f3f3f3;
+  background-color: #fff;
   font-family: var(--font-family-base);
   font-size: var(--fs-base);
   font-weight: var(--font-weight-regular);
@@ -8,9 +8,15 @@
 
 .page__content {
   max-width: 1440px;
-  margin: 0 auto;
+  margin: 0;
   min-width: 100vh;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  .page__content {
+    max-width: 768px;
+  }
 }

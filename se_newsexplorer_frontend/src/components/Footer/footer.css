@@ -1,0 +1,45 @@
+.footer {
+  display: flex;
+  padding: 26px 104px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.footer__copyright {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: var(--font-weight-regular);
+  color: #b6bcbf;
+}
+
+.footer__nav-group {
+  display: flex;
+  gap: 40px;
+}
+
+.footer__nav-home,
+.footer__nav-tripleTen {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  color: #000;
+  text-decoration: none;
+}
+
+.footer__nav-gitHubLogo,
+.footer__nav-LinkedInLogo {
+  width: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 24px 40px;
+  }
+
+  .footer__copyright {
+    margin: 0;
+  }
+}

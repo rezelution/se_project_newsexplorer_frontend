@@ -1,0 +1,45 @@
+.confirmationModal__container {
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 2px;
+}
+
+.confirmationModal__title {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-xl);
+  /* wanted to customize this more */
+  line-height: 1.2; 
+  font-weight: var(--font-weight-black);
+  margin: 9px 0 32px 0;
+}
+
+.confirmationModal__button_group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.confirmationModal__button {
+  border: 2px solid rgba(255, 255, 255);
+  border-radius: 100px;
+  background: transparent;
+  font-family: var(--font-family-alt);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  padding: 0;
+}
+
+.confirmationModal__button--delete {
+  color: #2f71e5;
+}
+
+.confirmationModal__button--delete:hover {
+  color: red;
+}
+.confirmationModal__button--cancel {
+  color: #000;
+}

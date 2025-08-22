@@ -1,0 +1,20 @@
+.savedNews {
+  background-color: #f5f6f7;
+  padding: 0 0 62px;
+}
+
+.savedNews__noArticles {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  padding: 80px 104px;
+}
+
+.savedNews__cardsList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
+  padding: 62px 0 64px;
+}
