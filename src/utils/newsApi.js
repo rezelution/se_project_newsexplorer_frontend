@@ -16,6 +16,7 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
       searchTerm
     )}&from=${fromDate}&to=${toDate}&pageSize=100`,
     {
+      method: "GET",
       headers: {
         "X-Api-Key": APIkey,
       },
