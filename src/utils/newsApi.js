@@ -14,21 +14,18 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
   return fetch(
     `https://newsapi.org/v2/everything?q=${encodeURIComponent(
       searchTerm
-    )}&from=${fromDate}&to=${toDate}&pageSize=100&apiKey=${APIkey}`
+    )}&from=${fromDate}&to=${toDate}&pageSize=100`,
+    {
+      headers: {
+        "X-Api-Key": APIkey,
+      },
+    }
   )
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json();
-    })
-    .then((data) => {
-      if (data.status === "error") {
-        const message =
-          apiErrorMessages[data.code] || data.message || "Unknown API error";
-        throw new Error(message);
-      }
-      return data;
     })
     .catch((error) => {
       console.error("Fetch failed:", error.message);
