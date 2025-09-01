@@ -28,16 +28,16 @@ This app is built using the following technologies:
 1. **Visit the App**: Open the website (GitHub Pages link below).
    ![App Screenshot](/screenshots/Website.png)
 2. **Search for Articles**: Enter keywords in the search bar to find articles from the last 7 days.
-   ![Search Example](/se_project_newsexplorer_frontend/screenshots/Header_and_Search.png)
+   ![Search Example](/screenshots/Header_and_Search.png)
 3. **Save Articles**: Bookmark articles by clicking the "Save" icon. If you're not logged in, you'll be prompted to log in first.
-   ![Article Results](/se_project_newsexplorer_frontend/screenshots/Search_Results.png)
-   ![Save Article](/se_project_newsexplorer_frontend/screenshots/login_to_save.png)
+   ![Article Results](/screenshots/Search_Results.png)
+   ![Save Article](/screenshots/login_to_save.png)
 4. **Login to Save Articles**: Once logged in, you can save articles and view them under your "Saved Articles" section.
-   ![Login](/se_project_newsexplorer_frontend/screenshots/log_in.png)
+   ![Login](/screenshots/log_in.png)
 5. **View Saved Articles**: Manage your saved articles, organized by the search keywords you used to find them.
-   ![Saved Articles](/se_project_newsexplorer_frontend/screenshots/Saved_Articles.png)
+   ![Saved Articles](/screenshots/Saved_Articles.png)
 6. **Delete Saved Articles**: You can delete articles from your saved list when they’re no longer needed.
-   ![Delete Article](/se_project_newsexplorer_frontend/screenshots/delete_articles.png)
+   ![Delete Article](/screenshots/delete_articles.png)
 
 ## Deployment
 
