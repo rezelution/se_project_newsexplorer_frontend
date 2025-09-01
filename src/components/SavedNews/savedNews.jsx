@@ -1,7 +1,6 @@
 import "./savedNews.css";
 import SavedNewsHeader from "../SavedNewsHeader/savedNewsHeader";
-import Footer from "../Footer/footer";
-import NewsCardList from "../NewsCardList/newsCardList";
+import NewsCardList from "../NewsCardList/NewsCardList";
 
 export function SavedNews({
   savedArticles,

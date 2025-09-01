@@ -25,25 +25,26 @@ This app is built using the following technologies:
 
 ## How to Use
 
-1. **Visit the App**: Open the website (GitHub Pages link to be updated).
-   ![App Screenshot](path/to/your/image/placeholder.png)
+1. **Visit the App**: Open the website (GitHub Pages link below).
+   ![App Screenshot](/screenshots/Website.png)
 2. **Search for Articles**: Enter keywords in the search bar to find articles from the last 7 days.
-   ![Search Example](path/to/your/image/placeholder.png)
+   ![Search Example](/se_project_newsexplorer_frontend/screenshots/Header_and_Search.png)
 3. **Save Articles**: Bookmark articles by clicking the "Save" icon. If you're not logged in, you'll be prompted to log in first.
-   ![Save Article](path/to/your/image/placeholder.png)
+   ![Article Results](/se_project_newsexplorer_frontend/screenshots/Search_Results.png)
+   ![Save Article](/se_project_newsexplorer_frontend/screenshots/login_to_save.png)
 4. **Login to Save Articles**: Once logged in, you can save articles and view them under your "Saved Articles" section.
-   ![Login](path/to/your/image/placeholder.png)
+   ![Login](/se_project_newsexplorer_frontend/screenshots/log_in.png)
 5. **View Saved Articles**: Manage your saved articles, organized by the search keywords you used to find them.
-   ![Saved Articles](path/to/your/image/placeholder.png)
+   ![Saved Articles](/se_project_newsexplorer_frontend/screenshots/Saved_Articles.png)
 6. **Delete Saved Articles**: You can delete articles from your saved list when they’re no longer needed.
-   ![Delete Article](path/to/your/image/placeholder.png)
+   ![Delete Article](/se_project_newsexplorer_frontend/screenshots/delete_articles.png)
 
 ## Deployment
 
 This app is deployed on GitHub Pages. To access it:
 
-1. Visit the deployed website at [News Explorer on GitHub Pages](#) _(link to be updated once available)_.
-   ![Deployment Screenshot](path/to/your/image/placeholder.png)
+1. Visit the deployed website at
+   (https://rezelution.github.io/se_project_newsexplorer_frontend/)
 2. Use the search functionality to start exploring and saving news articles.
 
 ## Future Improvements
@@ -53,4 +54,3 @@ This app is deployed on GitHub Pages. To access it:
 - **Enhanced Search Filters**: Add additional filters for searching articles, such as category, date range, and source type.
 - **User Profile Customization**: Allow users to personalize their profiles, such as adding a profile picture or bio.
 - **UI/UX Enhancements**: Further improve the user interface and user experience, especially on mobile devices.
-  ![Future Improvements](path/to/your/image/placeholder.png)

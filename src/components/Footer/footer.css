@@ -1,13 +1,13 @@
 .footer {
-  width: 100%; /* Make sure it spans the full width of the viewport */
-  max-width: 1440px; /* Limit max width on large screens */
-  margin: 0 auto; /* Center it horizontally */
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
   padding: 32px 104px 26px;
-  box-sizing: border-box; /* Important to include padding inside width */
+  box-sizing: border-box;
 }
 
 .footer__copyright {
@@ -72,8 +72,8 @@
   .footer__nav-group {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between; /* distributes groups to edges */
-    width: 100%; /* fills footer width */
+    justify-content: space-between;
+    width: 100%;
   }
 
   .footer__leftGroup {

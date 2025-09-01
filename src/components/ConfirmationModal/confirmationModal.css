@@ -9,8 +9,7 @@
 .confirmationModal__title {
   font-family: var(--font-family-base);
   font-size: var(--fs-xl);
-  /* wanted to customize this more */
-  line-height: 1.2; 
+  line-height: 1.2;
   font-weight: var(--font-weight-black);
   margin: 9px 0 32px 0;
 }
@@ -22,7 +21,7 @@
 }
 
 .confirmationModal__button {
-  border: 2px solid rgba(255, 255, 255);
+  border-style: none;
   border-radius: 100px;
   background: transparent;
   font-family: var(--font-family-alt);

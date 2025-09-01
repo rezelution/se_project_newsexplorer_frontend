@@ -20,14 +20,13 @@ function NewsCard({
     if (isSavedNewsPage) {
       onDelete?.();
     } else {
-      if (!isLoggedIn) return; // Don't save if not logged in
+      if (!isLoggedIn) return;
       onSave?.();
     }
   };
 
   return (
     <div className="card">
-      {/* keywords and delete button */}
       {isSavedNewsPage ? (
         <div className="card__keyword-and-delete-icon">
           <div className="card__keywords">

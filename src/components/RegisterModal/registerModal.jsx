@@ -6,7 +6,6 @@ export default function RegisterModal({
   isOpen,
   onClose,
   onRegister,
-  // handleRegisterClick,
   handleLoginClick,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =

@@ -50,8 +50,6 @@ function App() {
   };
 
   const handleMobileHomeClick = () => {
-    console.log("Home button clicked!");
-
     navigate("/");
   };
 
@@ -311,7 +309,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            {/* uncomment below for testing and copy paste into url */}
+            {/* uncomment below for testing  */}
             {/* <Route path="/loader-test" element={<PreLoader />} /> */}
           </Routes>
           <Footer handleHomeClick={handleHomeClick} />
@@ -328,7 +326,6 @@ function App() {
           handleCloseClick={closeActiveModal}
           onClose={closeActiveModal}
           onRegister={handleRegistration}
-          onSwitchToLogin={handleLogin}
           handleLoginClick={handleLoginClick}
         />
         <ConfirmationModal

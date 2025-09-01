@@ -73,7 +73,7 @@ function Navigation({
       )}
       {!isOpen &&
         (!isLoggedIn ? (
-          // Mobile hamburger menu for logged out users
+          // Mobile  menu for logged out users
           <nav className="navigation__mobile">
             <button
               className="navigation__mobileBtn"

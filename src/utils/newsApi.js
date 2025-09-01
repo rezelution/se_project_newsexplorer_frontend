@@ -1,6 +1,6 @@
 import apiErrorMessages from "./apiErrorMessages";
 
-// fetch articles from API
+// fetch articles from NewsAPI directly
 export const getNewsArticles = ({ searchTerm, APIkey }) => {
   const getFormattedDateNDaysAgo = (n) => {
     const date = new Date();
@@ -11,12 +11,13 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
   const fromDate = getFormattedDateNDaysAgo(7);
   const toDate = new Date().toISOString().split("T")[0];
 
-  return fetch(
-    `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-      searchTerm
-    )}&from=${fromDate}&to=${toDate}&pageSize=100`,
-    { headers: { "X-Api-Key": APIkey } }
-  )
+  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(
+    searchTerm
+  )}&from=${fromDate}&to=${toDate}&pageSize=100`;
+
+  return fetch(url, {
+    headers: { "X-Api-Key": APIkey },
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -37,7 +38,7 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
     });
 };
 
-// formatting date
+// formatting date helper function
 const formatDate = (isoDateString) => {
   const date = new Date(isoDateString);
   const options = { year: "numeric", month: "long", day: "numeric" };
