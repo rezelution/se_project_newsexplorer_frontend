@@ -1,6 +1,5 @@
 import apiErrorMessages from "./apiErrorMessages";
 
-// fetch articles from NewsAPI directly
 export const getNewsArticles = ({ searchTerm, APIkey }) => {
   const getFormattedDateNDaysAgo = (n) => {
     const date = new Date();
@@ -11,14 +10,28 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
   const fromDate = getFormattedDateNDaysAgo(7);
   const toDate = new Date().toISOString().split("T")[0];
 
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-    searchTerm
-  )}&from=${fromDate}&to=${toDate}&sortBy=popularity&pageSize=100&apiKey=${APIkey}`;
+  const url =
+    "https://newsapi.org/v2/everything?" +
+    "q=" +
+    encodeURIComponent(searchTerm) +
+    "&" +
+    "from=" +
+    fromDate +
+    "&" +
+    "to=" +
+    toDate +
+    "&" +
+    "sortBy=popularity&" +
+    "pageSize=100&" +
+    "apiKey=" +
+    APIkey;
 
-  return fetch(url)
+  const req = new Request(url);
+
+  return fetch(req)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error("HTTP error! Status: " + response.status);
       }
       return response.json();
     })
