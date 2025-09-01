@@ -14,10 +14,10 @@ function SearchForm({ inputValue, onInputChange, onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="searchForm" onSubmit={handleSubmit}>
       <input
         ref={inputRef}
-        className="searchForm"
+        className="searchForm__input"
         type="text"
         placeholder="Enter Topic"
         value={inputValue}

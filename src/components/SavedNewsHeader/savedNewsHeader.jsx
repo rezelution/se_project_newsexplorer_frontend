@@ -1,12 +1,14 @@
 import "./savedNewsHeader.css";
 import { Link } from "react-router-dom";
-import signOutIconBlack from "../../assets/signOut_Icon_black.svg";
+import Navigation from "../Navigation/navigation";
 
 function SavedNewsHeader({
   currentUser,
-  handleLogOut,
+  isLoggedIn,
   searchTerm,
   savedArticles,
+  handleLogOut,
+  handleMobileHomeClick,
 }) {
   function formatKeywords(keywords) {
     if (!Array.isArray(keywords) || keywords.length === 0) return "None";
@@ -17,13 +19,15 @@ function SavedNewsHeader({
         .join(", ");
     }
 
-    const firstTwo = keywords
-      .slice(0, 2)
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+    const shuffled = keywords
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .sort(() => 0.5 - Math.random());
+
+    const randomTwo = shuffled.slice(0, 2);
 
     const othersCount = keywords.length - 2;
 
-    return `${firstTwo.join(", ")}, and ${othersCount} other${
+    return `${randomTwo.join(", ")}, and ${othersCount} other${
       othersCount > 1 ? "s" : ""
     }`;
   }
@@ -40,30 +44,13 @@ function SavedNewsHeader({
         >
           NewsExplorer
         </Link>
-        <div className="savedNewsHeader__nav">
-          <Link to="/" className="savedNewsHeader__nav-home">
-            Home
-          </Link>
-
-          <Link
-            to="/saved-news"
-            className="savedNewsHeader__nav-saved-articles savedNewsHeader__nav-saved-articles--active"
-          >
-            Saved Articles
-          </Link>
-
-          <button
-            className="savedNewsHeader__signOutBtn"
-            onClick={handleLogOut}
-          >
-            {currentUser.userName}
-            <img
-              src={signOutIconBlack}
-              alt="Logout Icon"
-              className="savedNewsHeader__logOutIcon"
-            />
-          </button>
-        </div>
+        <Navigation
+          isLoggedIn={isLoggedIn}
+          currentUser={currentUser}
+          handleLogOut={handleLogOut}
+          isSavedNewsPage={true}
+          handleMobileHomeClick={handleMobileHomeClick}
+        />{" "}
       </nav>
 
       <div className="savedNewsHeader__title-group">

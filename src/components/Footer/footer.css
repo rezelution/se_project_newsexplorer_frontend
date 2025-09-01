@@ -1,9 +1,13 @@
 .footer {
+  width: 100%; /* Make sure it spans the full width of the viewport */
+  max-width: 1440px; /* Limit max width on large screens */
+  margin: 0 auto; /* Center it horizontally */
   display: flex;
-  padding: 26px 104px;
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
+  padding: 32px 104px 26px;
+  box-sizing: border-box; /* Important to include padding inside width */
 }
 
 .footer__copyright {
@@ -16,7 +20,18 @@
 
 .footer__nav-group {
   display: flex;
+  align-items: center;
   gap: 40px;
+}
+
+.footer__leftGroup {
+  display: flex;
+  gap: 40px;
+}
+
+.footer__rightGroup {
+  display: flex;
+  gap: 24px;
 }
 
 .footer__nav-home,
@@ -36,10 +51,47 @@
 
 @media screen and (max-width: 768px) {
   .footer {
+    width: 100%;
+    max-width: 768px;
     padding: 24px 40px;
   }
 
   .footer__copyright {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footer {
+    width: 100%;
+    max-width: 320px;
+    padding: 22px 18px;
+    flex-direction: column-reverse;
+  }
+
+  .footer__nav-group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between; /* distributes groups to edges */
+    width: 100%; /* fills footer width */
+  }
+
+  .footer__leftGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer__rightGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    margin-left: auto;
+  }
+
+  .footer__copyright {
+    font-size: var(--fs-sb);
+    line-height: var(--lh-sb);
+    margin-top: 40px;
   }
 }

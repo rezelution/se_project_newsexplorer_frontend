@@ -16,11 +16,14 @@ function NewsCardList({
   isSavedNewsPage,
   onDeleteClick,
 }) {
+  const isInitialLoading = loading && newsArticles.length === 0;
+
   return (
     <section className="newsCardList">
-      <h2 className="newsCardList__title">Search results</h2>
-
-      {loading ? (
+      {!isSavedNewsPage && (
+        <h2 className="newsCardList__title">Search results</h2>
+      )}
+      {isInitialLoading ? (
         <PreLoader />
       ) : error ? (
         <p className="newsCardList__error">{error}</p>

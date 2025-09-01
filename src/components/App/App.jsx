@@ -6,7 +6,6 @@ import Header from "../Header/header";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import About from "../About/about";
 import Footer from "../Footer/footer";
-import { PreLoader } from "../PreLoader/preLoader";
 
 import { SavedNews } from "../SavedNews/savedNews";
 import LogInModal from "../LoginModal/loginModal";
@@ -44,6 +43,16 @@ function App() {
 
   const handleHomeClick = () => {
     window.scrollTo(0, 0);
+  };
+
+  const handleArticlesClick = () => {
+    navigate("/saved-news");
+  };
+
+  const handleMobileHomeClick = () => {
+    console.log("Home button clicked!");
+
+    navigate("/");
   };
 
   const handleFormSearch = () => {
@@ -261,6 +270,9 @@ function App() {
               handleLoginClick={handleLoginClick}
               handleLogOut={handleLogOut}
               handleRegistration={handleRegistration}
+              isOpen={!!activeModal}
+              handleArticlesClick={handleArticlesClick}
+              handleMobileHomeClick={handleMobileHomeClick}
             />
           )}
           {location.pathname === "/" && searchTerm && (
@@ -294,6 +306,7 @@ function App() {
                     handleDeleteClick={handleDeleteClick}
                     Loading={setLoading}
                     searchTerm={searchTerm}
+                    handleMobileHomeClick={handleMobileHomeClick}
                   />
                 </ProtectedRoute>
               }
@@ -301,9 +314,7 @@ function App() {
             {/* uncomment below for testing and copy paste into url */}
             {/* <Route path="/loader-test" element={<PreLoader />} /> */}
           </Routes>
-          {location.pathname !== "/saved-news" && (
-            <Footer handleHomeClick={handleHomeClick} />
-          )}{" "}
+          <Footer handleHomeClick={handleHomeClick} />
         </div>
         <LogInModal
           isOpen={activeModal === "sign-in"}
@@ -318,6 +329,7 @@ function App() {
           onClose={closeActiveModal}
           onRegister={handleRegistration}
           onSwitchToLogin={handleLogin}
+          handleLoginClick={handleLoginClick}
         />
         <ConfirmationModal
           isOpen={activeModal === "delete-item"}

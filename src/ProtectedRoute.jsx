@@ -4,7 +4,11 @@ import AppContext from "./contexts/AppContext";
 
 export default function ProtectedRoute({ children }) {
   const location = useLocation();
-  const { isLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, userLoading } = useContext(AppContext);
+
+  if (userLoading) {
+    return null; // or a spinner component while loading auth state
+  }
 
   if (!isLoggedIn) {
     // Redirect to homepage if not logged in

@@ -9,6 +9,7 @@ export function SavedNews({
   handleLogOut,
   handleDeleteClick,
   isLoggedIn,
+  handleMobileHomeClick,
 }) {
   let allKeywords = [];
 
@@ -33,6 +34,7 @@ export function SavedNews({
         handleLogOut={handleLogOut}
         searchTerm={uniqueKeywords}
         savedArticles={savedArticles}
+        handleMobileHomeClick={handleMobileHomeClick}
       />
 
       <section className="savedNews">
@@ -55,8 +57,6 @@ export function SavedNews({
           />
         )}
       </section>
-
-      <Footer />
     </div>
   );
 }

@@ -1,21 +1,24 @@
 .about {
-  display: flex;
-  padding: 80px 104px;
   background-color: #fff;
+  max-width: 1440px;
+  padding: 0 24px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .about__image {
-  width: 100%;
   max-width: 464px;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
-  background-position: left;
-  margin-right: 56px;
+  margin: 80px 54px 80px 56px;
+  justify-content: flex-start;
 }
 
 .about__story {
   width: 600px;
+  margin: 131px 0 0;
 }
 
 .about__title {
@@ -24,19 +27,11 @@
   line-height: var(--lh-hero);
   font-weight: var(--font-weight-regular);
   color: #000;
-  margin-top: 51px;
+  margin: 0 0 24px 0;
 }
 
 .about__body {
-  margin-top: 24px;
-  font-family: var(--font-family-base);
-  font-size: var(--fs-m);
-  line-height: var(--lh-m);
-  font-weight: var(--font-weight-regular);
-}
-
-.about__body--no-margin {
-  margin: 0;
+  margin: 0 0 36px;
   font-family: var(--font-family-base);
   font-size: var(--fs-m);
   line-height: var(--lh-m);
@@ -44,18 +39,18 @@
 }
 
 @media screen and (max-width: 768px) {
-  .about {
-    padding: 40px;
-  }
-
   .about__image {
     max-width: 232px;
-    height: 232px;
-    margin-right: 32px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 61px 54px 40px 16px;
   }
 
   .about__story {
-    width: 600px;
+    margin: 40px 0 0;
+    width: 424px;
   }
 
   .about__title {
@@ -63,8 +58,33 @@
     line-height: var(--lh-xxlT);
     margin: 0 0 16px;
   }
+}
 
-  .about__body {
-    margin: 0 0 35px;
+@media screen and (max-width: 320px) {
+  .about {
+    flex-direction: column;
+    max-width: 320px;
+    margin: 0;
+    padding: 32px 24px 0;
+    box-sizing: border-box;
+  }
+
+  .about__story {
+    margin: 24px 0 128px;
+    width: 288px;
+    height: 320px;
+  }
+
+  .about__image {
+    max-width: 272px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0;
+  }
+
+  .about__title {
+    margin: 0 0 16px;
   }
 }

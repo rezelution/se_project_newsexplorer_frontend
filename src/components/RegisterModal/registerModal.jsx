@@ -6,7 +6,8 @@ export default function RegisterModal({
   isOpen,
   onClose,
   onRegister,
-  handleRegisterClick,
+  // handleRegisterClick,
+  handleLoginClick,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
@@ -41,7 +42,7 @@ export default function RegisterModal({
       onSubmit={handleSubmit}
       isValid={isValid}
       name="sign-up"
-      onClick={handleRegisterClick}
+      onClick={handleLoginClick}
       alternateButtonText={
         <>
           or <span className="modal__alternate-title">Sign In</span>

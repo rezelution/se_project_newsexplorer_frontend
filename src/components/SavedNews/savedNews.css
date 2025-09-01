@@ -1,6 +1,11 @@
 .savedNews {
   background-color: #f5f6f7;
-  padding: 0 0 62px;
+  width: 100%;
+  max-width: 100vw;
+  padding: 62px 0px;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
 .savedNews__noArticles {
@@ -17,4 +22,11 @@
   flex-direction: row;
   gap: 16px;
   padding: 62px 0 64px;
+}
+
+@media screen and (max-width: 320px) {
+  .savedNews {
+    padding: 0;
+    max-width: 320px;
+  }
 }

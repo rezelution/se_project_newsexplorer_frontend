@@ -66,16 +66,14 @@
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/SourceSansPro-regular-webfont.woff2") format("woff2"),
-    url("./fonts/SourceSansPro-regular-webfont.woff") format("woff");
+  src: url("./fonts/SourceSansPro-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 700;
-  src: url("./fonts/SourceSansPro-Bold.otf.woff2") format("woff2"),
-    url("./fonts/SourceSansPro-Bold.otf.woff") format("woff");
+  src: url("./fonts/SourceSansPro-Bold.woff") format("woff");
 }
 
 :root {
@@ -99,6 +97,9 @@
 
   --fs-s: 14px;
   --lh-s: 1;
+
+  --fs-sb: 15px;
+  --lh-sb: 20px;
 
   --fs-base: 16px;
   --lh-base: 22px;

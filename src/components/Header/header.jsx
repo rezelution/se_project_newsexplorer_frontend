@@ -1,15 +1,18 @@
 import "./header.css";
 import { Link } from "react-router-dom";
-import signOutIcon from "../../assets/signOut_Icon.svg";
 import SearchForm from "../SearchForm/searchForm";
+import Navigation from "../Navigation/navigation";
 
 function Header({
-  isLoggedIn,
   inputValue,
   onInputChange,
   onSearch,
+  isLoggedIn,
   currentUser,
   handleLoginClick,
+  isOpen,
+  handleArticlesClick,
+  handleMobileHomeClick,
   handleLogOut,
 }) {
   return (
@@ -18,37 +21,15 @@ function Header({
         <Link to="/" className="header__logo" aria-label="NewsExplorer Home">
           NewsExplorer
         </Link>
-        {isLoggedIn ? (
-          <div className="header__nav">
-            <Link to="/" className="header__nav-home">
-              Home
-            </Link>
-            <Link to="/saved-news" className="header__nav-saved-articles">
-              Saved Articles
-            </Link>
-            <button className="header__signOutBtn" onClick={handleLogOut}>
-              {currentUser.userName}
-              <img
-                src={signOutIcon}
-                alt="Logout Icon"
-                className="header__logOutIcon"
-              ></img>
-            </button>
-          </div>
-        ) : (
-          <div className="header__nav">
-            <Link to="/" className="header__nav-home">
-              Home
-            </Link>
-            <button
-              onClick={handleLoginClick}
-              type="button"
-              className="header__signInBtn--loggedOut"
-            >
-              Sign in
-            </button>
-          </div>
-        )}
+        <Navigation
+          isLoggedIn={isLoggedIn}
+          currentUser={currentUser}
+          handleLoginClick={handleLoginClick}
+          isOpen={isOpen}
+          handleArticlesClick={handleArticlesClick}
+          handleMobileHomeClick={handleMobileHomeClick}
+          handleLogOut={handleLogOut}
+        />{" "}
       </nav>
       <section className="header__searchForm-group">
         <h1 className="header__headline">What's going on in the world?</h1>
