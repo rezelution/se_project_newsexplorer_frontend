@@ -1,13 +1,11 @@
 import apiErrorMessages from "./apiErrorMessages";
 
 const newsApiBaseUrl =
-  import.meta.env.MOD === "production"
+  import.meta.env.MODE === "production"
     ? "https://nomoreparties.co/news/v2/everything"
     : "https://newsapi.org/v2/everything";
 
-const APIkey = import.meta.env.VITE_NEWS_API_KEY;
-
-export const getNewsArticles = ({ searchTerm, APIkey }) => {
+export const getNewsArticles = async ({ searchTerm, APIkey }) => {
   const getFormattedDateNDaysAgo = (n) => {
     const date = new Date();
     date.setDate(date.getDate() - n);
@@ -29,15 +27,11 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
     toDate +
     "&" +
     "sortBy=popularity&" +
-    "pageSize=100";
+    "pageSize=100&" +
+    "apiKey=" +
+    APIkey;
 
-  const req = new Request(url, {
-    headers: {
-      "X-Api-Key": APIkey,
-    },
-  });
-
-  return fetch(req)
+  return fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error("HTTP error! Status: " + response.status);
