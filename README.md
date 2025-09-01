@@ -31,7 +31,6 @@ This app is built using the following technologies:
    ![Search Example](/screenshots/Header_and_Search.png)
 3. **Save Articles**: Bookmark articles by clicking the "Save" icon. If you're not logged in, you'll be prompted to log in first.
    ![Article Results](/screenshots/Search_Results.png)
-   ![Save Article](/screenshots/login_to_save.png)
 4. **Login to Save Articles**: Once logged in, you can save articles and view them under your "Saved Articles" section.
    ![Login](/screenshots/log_in.png)
 5. **View Saved Articles**: Manage your saved articles, organized by the search keywords you used to find them.
