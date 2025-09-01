@@ -13,11 +13,9 @@ export const getNewsArticles = ({ searchTerm, APIkey }) => {
 
   const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(
     searchTerm
-  )}&from=${fromDate}&to=${toDate}&pageSize=100`;
+  )}&from=${fromDate}&to=${toDate}&sortBy=popularity&pageSize=100&apiKey=${APIkey}`;
 
-  return fetch(url, {
-    headers: { "X-Api-Key": APIkey },
-  })
+  return fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
