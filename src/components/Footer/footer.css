@@ -61,10 +61,10 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .footer {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     padding: 22px 18px;
     flex-direction: column-reverse;
   }

@@ -24,7 +24,7 @@
   padding: 62px 0 64px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .savedNews {
     padding: 0;
     max-width: 320px;

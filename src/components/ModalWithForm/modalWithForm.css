@@ -145,7 +145,7 @@
   align-items: center;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .modal {
     align-items: flex-start;
     margin-top: 56px;
