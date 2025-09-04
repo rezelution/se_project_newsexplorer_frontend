@@ -4,6 +4,10 @@
   padding: 0 104px;
   background-color: #f5f6f7;
   max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .newsCardList__title {
@@ -28,6 +32,7 @@
   gap: 16px;
   padding: 0;
   margin: 0;
+  align-items: center;
 }
 
 .newsCardList__show-more-btn {
@@ -97,7 +102,6 @@
 @media screen and (max-width: 480px) {
   .newsCardList {
     padding: 32px 16px 26px;
-    max-width: 320px;
     display: flex;
     flex-direction: column;
     background-color: #f5f6f7;
