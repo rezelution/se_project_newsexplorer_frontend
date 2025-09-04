@@ -1,0 +1,39 @@
+.preloader {
+  background-color: #f5f6f7;
+  padding: 80px 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preloader__circle {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #1a1b22;
+  border-bottom-color: #d1d2d6;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  animation: spin 0.75s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.preloader__title {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  color: #b6bcbf;
+  width: 280px;
+  text-align: center;
+  margin: 24px 0 0;
+}

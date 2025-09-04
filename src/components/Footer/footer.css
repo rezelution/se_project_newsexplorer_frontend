@@ -1,0 +1,97 @@
+.footer {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 32px 104px 26px;
+  box-sizing: border-box;
+}
+
+.footer__copyright {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: var(--font-weight-regular);
+  color: #b6bcbf;
+}
+
+.footer__nav-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.footer__leftGroup {
+  display: flex;
+  gap: 40px;
+}
+
+.footer__rightGroup {
+  display: flex;
+  gap: 24px;
+}
+
+.footer__nav-home,
+.footer__nav-tripleTen {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  color: #000;
+  text-decoration: none;
+}
+
+.footer__nav-gitHubLogo,
+.footer__nav-LinkedInLogo {
+  width: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    width: 100%;
+    max-width: 768px;
+    padding: 24px 40px;
+  }
+
+  .footer__copyright {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    width: 100%;
+    max-width: 100%;
+    padding: 22px 18px;
+    flex-direction: column-reverse;
+  }
+
+  .footer__nav-group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .footer__leftGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer__rightGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    margin-left: auto;
+  }
+
+  .footer__copyright {
+    font-size: var(--fs-sb);
+    line-height: var(--lh-sb);
+    margin-top: 40px;
+  }
+}

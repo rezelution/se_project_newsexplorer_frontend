@@ -1,0 +1,33 @@
+.savedNews {
+  padding: 62px 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f6f7;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.savedNews__noArticles {
+  font-family: var(--font-family-base);
+  font-size: var(--fs-m);
+  line-height: var(--lh-m);
+  font-weight: var(--font-weight-regular);
+  padding: 80px 104px;
+}
+
+.savedNews__cardsList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
+  padding: 62px 0 64px;
+}
+
+@media screen and (max-width: 480px) {
+  .savedNews {
+    padding: 0;
+  }
+}
