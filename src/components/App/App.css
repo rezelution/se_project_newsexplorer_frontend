@@ -12,19 +12,19 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
   min-height: 100vh;
 }
 
 @media screen and (max-width: 768px) {
   .page__content {
-    /* max-width: 768px; */
     width: 100%;
   }
 }
 
 @media screen and (max-width: 480px) {
   .page__content {
-    /* max-width: 480px; */
     width: 100%;
   }
 }
