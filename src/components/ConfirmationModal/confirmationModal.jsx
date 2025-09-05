@@ -1,4 +1,4 @@
-import "./ConfirmationModal.css";
+import "./confirmationModal.css";
 import Modal from "../Modal/modal";
 
 function ConfirmationModal({
