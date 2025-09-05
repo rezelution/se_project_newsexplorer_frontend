@@ -1,4 +1,4 @@
-import "./ModalWithForm.css";
+import "./modalWithForm.css";
 import Modal from "../Modal/modal";
 
 function ModalWithForm({
