@@ -273,45 +273,47 @@ function App() {
               handleMobileHomeClick={handleMobileHomeClick}
             />
           )}
-          {location.pathname === "/" && searchTerm && (
-            <NewsCardList
-              searchTerm={searchTerm}
-              loading={loading}
-              newsArticles={newsArticles.slice(0, visibleCount)} // show only some
-              onShowMore={() => setVisibleCount((prev) => prev + 3)} // increase count
-              canShowMore={visibleCount < newsArticles.length} // check if more exist
-              totalArticles={newsArticles.length}
-              error={error}
-              isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
-              onSaveArticle={handleSaveArticle}
-              savedArticles={savedArticles}
-              isSavedNewsPage={false}
-            />
-          )}
-          <Routes>
-            <Route path="/" element={<About isLoggedIn={isLoggedIn} />} />
-            <Route
-              path="/saved-news"
-              element={
-                <ProtectedRoute>
-                  <SavedNews
-                    isLoggedIn={isLoggedIn}
-                    currentUser={currentUser}
-                    savedArticles={savedArticles}
-                    handleLogOut={handleLogOut}
-                    handleItemDelete={handleItemDelete}
-                    handleDeleteClick={handleDeleteClick}
-                    Loading={setLoading}
-                    searchTerm={searchTerm}
-                    handleMobileHomeClick={handleMobileHomeClick}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            {/* uncomment below for testing  */}
-            {/* <Route path="/loader-test" element={<PreLoader />} /> */}
-          </Routes>
+          <main>
+            {location.pathname === "/" && searchTerm && (
+              <NewsCardList
+                searchTerm={searchTerm}
+                loading={loading}
+                newsArticles={newsArticles.slice(0, visibleCount)} // show only some
+                onShowMore={() => setVisibleCount((prev) => prev + 3)} // increase count
+                canShowMore={visibleCount < newsArticles.length} // check if more exist
+                totalArticles={newsArticles.length}
+                error={error}
+                isLoggedIn={isLoggedIn}
+                currentUser={currentUser}
+                onSaveArticle={handleSaveArticle}
+                savedArticles={savedArticles}
+                isSavedNewsPage={false}
+              />
+            )}
+            <Routes>
+              <Route path="/" element={<About isLoggedIn={isLoggedIn} />} />
+              <Route
+                path="/saved-news"
+                element={
+                  <ProtectedRoute>
+                    <SavedNews
+                      isLoggedIn={isLoggedIn}
+                      currentUser={currentUser}
+                      savedArticles={savedArticles}
+                      handleLogOut={handleLogOut}
+                      handleItemDelete={handleItemDelete}
+                      handleDeleteClick={handleDeleteClick}
+                      Loading={setLoading}
+                      searchTerm={searchTerm}
+                      handleMobileHomeClick={handleMobileHomeClick}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              {/* uncomment below for testing  */}
+              {/* <Route path="/loader-test" element={<PreLoader />} /> */}
+            </Routes>
+          </main>
           <Footer handleHomeClick={handleHomeClick} />
         </div>
         <LogInModal
