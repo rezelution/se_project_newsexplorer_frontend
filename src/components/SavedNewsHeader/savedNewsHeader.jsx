@@ -5,7 +5,6 @@ import Navigation from "../Navigation/navigation";
 function SavedNewsHeader({
   currentUser,
   isLoggedIn,
-  searchTerm,
   savedArticles,
   handleLogOut,
   handleMobileHomeClick,

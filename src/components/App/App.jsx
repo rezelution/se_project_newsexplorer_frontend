@@ -102,8 +102,13 @@ function App() {
           localStorage.setItem("jwt", token);
           setCurrentUser({ ...data, token });
           setIsLoggedIn(true);
-          closeActiveModal();
-          navigate("/");
+
+          // ✅ Fetch saved articles immediately after login
+          return getSavedArticles(token).then((res) => {
+            setSavedArticles(res.data);
+            closeActiveModal();
+            navigate("/");
+          });
         }
       })
       .catch((err) => {
@@ -227,7 +232,7 @@ function App() {
         );
       })
       .finally(() => setLoading(false));
-  }, [searchTerm]);
+  }, [searchTerm, savedArticles]);
 
   useEffect(() => {
     if (!activeModal) return;
