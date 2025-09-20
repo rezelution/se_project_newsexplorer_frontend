@@ -30,14 +30,9 @@ function NewsCardList({
       ) : newsArticles.length > 0 ? (
         <ul className="newsCardList__cards">
           {newsArticles.map((article) => (
-            <li
-              key={article.url || article.title}
-              className="newsCardList__item"
-            >
+            <li key={`${article.url}-${article.publishedAt}`}>
               <NewsCard
-                keyword={
-                  isSavedNewsPage ? article.searchTerm || "" : searchTerm
-                }
+                keyword={article.keyword}
                 urlToImage={article.urlToImage}
                 publishedAt={article.publishedAt}
                 title={article.title}

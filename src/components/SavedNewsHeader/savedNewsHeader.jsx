@@ -32,8 +32,10 @@ function SavedNewsHeader({
     }`;
   }
 
-  const formattedKeywords = formatKeywords(searchTerm);
-
+  const keywordList = [
+    ...new Set(savedArticles.map((a) => a.keyword).filter(Boolean)),
+  ];
+  const formattedKeywords = formatKeywords(keywordList);
   return (
     <header className="savedNewsHeader">
       <nav className="savedNewsHeader__nav-group">
@@ -56,9 +58,9 @@ function SavedNewsHeader({
       <div className="savedNewsHeader__title-group">
         <p className="savedNewsHeader__subhead">Saved Articles</p>
         <h1 className="savedNewsHeader__title">
-          {currentUser.userName
-            ? currentUser.userName.charAt(0).toUpperCase() +
-              currentUser.userName.slice(1) +
+          {currentUser.name
+            ? currentUser.name.charAt(0).toUpperCase() +
+              currentUser.name.slice(1) +
               ","
             : ""}{" "}
           you have {savedArticles.length} saved articles

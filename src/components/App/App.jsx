@@ -15,13 +15,15 @@ import RegisterSuccessModal from "../RegisterSuccessModal/registerSuccessModal";
 
 import { getNewsArticles } from "../../utils/newsApi";
 import { filterNewsArticles } from "../../utils/newsApi";
+import { getSavedArticles, saveArticle } from "../../utils/api";
+import { checkToken } from "../../utils/auth";
 
 import { APIkey } from "../../utils/constants";
 
 import * as auth from "../../utils/auth";
 
 import AppContext from "../../contexts/AppContext";
-import { saveArticle, deleteItem } from "../../utils/api";
+import { deleteItem } from "../../utils/api";
 import ProtectedRoute from "../../ProtectedRoute";
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
   const [visibleCount, setVisibleCount] = useState(3);
   const [error, setError] = useState(null);
   const [activeModal, setActiveModal] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
   const [savedArticles, setSavedArticles] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -79,9 +81,9 @@ function App() {
     setActiveModal("delete-item");
   };
 
-  const handleRegistration = ({ email, password, userName }) => {
+  const handleRegistration = ({ email, password, name }) => {
     auth
-      .register(email, password, userName)
+      .register(email, password, name)
       .then(() => {
         setActiveModal("registerSuccess_modal");
       })
@@ -95,10 +97,10 @@ function App() {
 
     auth
       .authorize(email, password)
-      .then(({ token, user }) => {
+      .then(({ data, token }) => {
         if (token) {
           localStorage.setItem("jwt", token);
-          setCurrentUser(user);
+          setCurrentUser({ ...data, token });
           setIsLoggedIn(true);
           closeActiveModal();
           navigate("/");
@@ -122,25 +124,25 @@ function App() {
       return;
     }
 
-    const key = "savedArticles_" + currentUser.email;
-    let articles = localStorage.getItem(key);
-    if (articles === null) {
-      articles = [];
-    } else {
-      articles = JSON.parse(articles); // Turns string into array
-    }
+    // Check if article already saved by unique url
+    const alreadySaved = savedArticles.some(
+      (savedArticle) => savedArticle.url === article.url
+    );
 
-    const isDuplicate = articles.some((item) => item.title === article.title);
-
-    if (isDuplicate) {
+    if (alreadySaved) {
+      console.log("Article already saved");
       return;
     }
-    const articleWithSearch = { ...article, searchTerm };
-    saveArticle(articleWithSearch, currentUser.email)
+
+    const articleWithSearch = { ...article, keyword: searchTerm };
+
+    saveArticle(articleWithSearch, currentUser.token)
       .then((saved) => {
-        setSavedArticles((prev) => [...prev, saved]);
+        setSavedArticles((prev) => [...prev, saved.data]);
       })
-      .catch((err) => console.error("Error saving article:", err));
+      .catch((err) => {
+        console.error("Error saving article:", err);
+      });
   };
 
   const handleItemDelete = () => {
@@ -149,19 +151,11 @@ function App() {
       return;
     }
 
-    deleteItem(selectedArticle._id, currentUser.email)
+    deleteItem(selectedArticle._id, currentUser.token)
       .then(() => {
-        // Remove from state and localStorage
-        setSavedArticles((prev) => {
-          const updated = prev.filter(
-            (item) => item._id !== selectedArticle._id
-          );
-          const savedKey = `savedArticles_${currentUser.email}`;
-          localStorage.setItem(savedKey, JSON.stringify(updated));
-
-          return updated;
-        });
-
+        setSavedArticles((prev) =>
+          prev.filter((item) => item._id !== selectedArticle._id)
+        );
         setSelectedArticle(null);
         closeActiveModal();
       })
@@ -171,19 +165,32 @@ function App() {
   };
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (!jwt) return;
+    const token = localStorage.getItem("jwt");
 
-    setUserLoading(true);
-    auth
-      .checkToken(jwt)
-      .then((response) => {
-        const { userName, email } = response.data;
-        setCurrentUser({ userName, email });
+    if (!token) {
+      setUserLoading(false);
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+      setSavedArticles([]);
+      return;
+    }
+
+    checkToken(token)
+      .then((res) => {
+        // Assuming your API returns user info inside res.data
+        setCurrentUser({ ...res.data, token });
         setIsLoggedIn(true);
+        return getSavedArticles(token);
+      })
+      .then((res) => {
+        setSavedArticles(res.data);
       })
       .catch((err) => {
-        console.error("Token check failed:", err);
+        console.error("Token check or fetching saved articles failed:", err);
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+        setSavedArticles([]);
       })
       .finally(() => {
         setUserLoading(false);
@@ -199,17 +206,15 @@ function App() {
       .then((data) => {
         const filteredData = filterNewsArticles(data);
 
-        // Mark each article as saved if it exists in savedArticles by matching title and date
         const updatedArticles = filteredData.map((article) => {
           const saved = savedArticles.find(
-            (savedArticle) =>
-              savedArticle.title === article.title &&
-              savedArticle.publishedAt === article.publishedAt
+            (savedArticle) => savedArticle.url === article.url
           );
           return {
             ...article,
             isSaved: !!saved,
-            _id: saved?._id || null, // attach _id if saved
+            _id: saved?._id || null,
+            keyword: saved ? saved.keyword : searchTerm,
           };
         });
 
@@ -222,7 +227,7 @@ function App() {
         );
       })
       .finally(() => setLoading(false));
-  }, [searchTerm, savedArticles]);
+  }, [searchTerm]);
 
   useEffect(() => {
     if (!activeModal) return;
@@ -239,16 +244,6 @@ function App() {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [activeModal]);
-
-  useEffect(() => {
-    if (isLoggedIn && currentUser?.email) {
-      const key = `savedArticles_${currentUser.email}`;
-      const saved = JSON.parse(localStorage.getItem(key)) || [];
-      setSavedArticles(saved);
-    } else {
-      setSavedArticles([]);
-    }
-  }, [isLoggedIn, currentUser]);
 
   return (
     <div className="page">
@@ -295,7 +290,7 @@ function App() {
               <Route
                 path="/saved-news"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <SavedNews
                       isLoggedIn={isLoggedIn}
                       currentUser={currentUser}

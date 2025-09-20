@@ -34,6 +34,7 @@
   margin: 0;
   align-items: center;
   justify-content: center;
+  list-style: none;
 }
 
 .newsCardList__show-more-btn {

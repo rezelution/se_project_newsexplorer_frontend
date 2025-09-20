@@ -45,7 +45,7 @@ function Navigation({
             className="navigation__saved-news-signOutBtn"
             onClick={handleLogOut}
           >
-            {currentUser.userName}
+            {currentUser?.name}
             <img
               src={signOutIconBlack}
               alt="Logout Icon"
@@ -62,7 +62,7 @@ function Navigation({
             Saved Articles
           </Link>
           <button className="navigation__signOutBtn" onClick={handleLogOut}>
-            {currentUser.userName}
+            {currentUser?.name}
             <img
               src={signOutIcon}
               alt="Logout Icon"

@@ -10,6 +10,7 @@ export function SavedNews({
   isLoggedIn,
   handleMobileHomeClick,
 }) {
+  console.log("SavedNews mounted, savedArticles:", savedArticles);
   let allKeywords = [];
 
   // Extract and normalize keywords
@@ -24,6 +25,7 @@ export function SavedNews({
 
   // Remove duplicate keywords
   const uniqueKeywords = [...new Set(allKeywords)];
+  console.log("Saved Articles on SavedNews Page:", savedArticles);
 
   return (
     <div>

@@ -27,7 +27,7 @@ export default function RegisterModal({
       onRegister({
         email: values.email,
         password: values.password,
-        userName: values.userName,
+        name: values.name,
       });
     }
   };
@@ -78,21 +78,19 @@ export default function RegisterModal({
           <span className="modal__error">{errors.password}</span>
         )}
       </label>
-      <label htmlFor="userName" className="modal__label">
+      <label htmlFor="name" className="modal__label">
         Username
         <input
           type="text"
-          name="userName"
+          name="name"
           className="modal__input"
           id="registrationUserName"
           placeholder="Enter username"
           onChange={handleChange}
-          value={values.userName || ""}
+          value={values.name || ""}
           required
         />
-        {errors.userName && (
-          <span className="modal__error">{errors.userName}</span>
-        )}
+        {errors.name && <span className="modal__error">{errors.name}</span>}
       </label>
     </ModalWithForm>
   );

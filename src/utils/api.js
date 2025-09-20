@@ -1,45 +1,51 @@
-export function getItems(email) {
-  const saved =
-    JSON.parse(localStorage.getItem(`savedArticles_${email}`)) || [];
-  return Promise.resolve(saved);
+const BASE_URL =
+  import.meta.env.MODE === "production"
+    ? "https://api.heatcheck.blinklab.com"
+    : "http://localhost:3001";
+
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 }
 
-export function saveArticle(article, email) {
-  const key = `savedArticles_${email}`;
-  const existing = JSON.parse(localStorage.getItem(key)) || [];
-
-  // Generate a unique _id for every saved article
-  const compositeId = `${article.title}-${article.publishedAt}`;
-  const alreadySaved = existing.some((item) => item._id === compositeId);
-
-  if (!alreadySaved) {
-    const saved = {
-      _id: compositeId,
-      name: article.source?.name || article.name || "Unknown Source",
-      title: article.title,
-      description: article.description,
-      urlToImage: article.urlToImage,
-      publishedAt: article.publishedAt,
-      searchTerm: article.searchTerm,
-      url: article.url,
-    };
-
-    const updated = [...existing, saved];
-    localStorage.setItem(key, JSON.stringify(updated));
-    return Promise.resolve(saved);
-  }
-
-  return Promise.resolve(existing.find((item) => item._id === compositeId));
+function request(url, options) {
+  return fetch(url, options)
+    .then(checkResponse)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw error;
+    });
 }
 
-export function deleteItem(articleId, email) {
-  const key = `savedArticles_${email}`;
-  const existing = JSON.parse(localStorage.getItem(key)) || [];
+export const getSavedArticles = (token) => {
+  return fetch(`${BASE_URL}/saved-news`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+};
 
-  const updated = existing.filter((a) => a._id !== articleId);
-  localStorage.setItem(key, JSON.stringify(updated));
+export const saveArticle = (article, token) => {
+  return fetch(`${BASE_URL}/saved-news`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(article),
+  }).then(checkResponse);
+};
 
-  return Promise.resolve({
-    message: `Article ${articleId} deleted successfully.`,
+function deleteItem(id, token) {
+  return request(`${BASE_URL}/saved-news/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   });
 }
+
+export { request, deleteItem, checkResponse };

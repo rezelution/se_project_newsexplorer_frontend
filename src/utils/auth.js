@@ -1,63 +1,37 @@
-const FAKE_USERS_KEY = "fakeUsers";
+import { checkResponse } from "./api";
 
-function getStoredUsers() {
-  const users = localStorage.getItem(FAKE_USERS_KEY);
-  return users ? JSON.parse(users) : [];
-}
+export const BASE_URL =
+  import.meta.env.MODE === "production"
+    ? "https://api.heatcheck.blinklab.com"
+    : "http://localhost:3001";
 
-function saveUserToStorage(newUser) {
-  const users = getStoredUsers();
-  users.push(newUser);
-  localStorage.setItem(FAKE_USERS_KEY, JSON.stringify(users));
-}
-
-export const register = (email, password, userName) => {
-  return new Promise((resolve, reject) => {
-    const users = getStoredUsers();
-
-    const emailExists = users.some((user) => user.email === email);
-    if (emailExists) {
-      reject(new Error("Email is already registered"));
-      return;
-    }
-
-    const usernameExists = users.some(
-      (user) => user.userName.toLowerCase() === userName.toLowerCase()
-    );
-    if (usernameExists) {
-      reject(new Error("Username is already taken"));
-      return;
-    }
-
-    const newUser = { email, password, userName };
-    saveUserToStorage(newUser);
-    resolve({ data: newUser });
-  });
+export const register = (email, password, name) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password, name }),
+  }).then(checkResponse);
 };
 
 export const authorize = (email, password) => {
-  return new Promise((resolve, reject) => {
-    const users = getStoredUsers();
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    );
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
 
-    if (user) {
-      resolve({ token: "fake-jwt-token", user });
-    } else {
-      reject(new Error("Invalid email or password"));
-    }
-  });
+    body: JSON.stringify({ email, password }),
+  }).then(checkResponse);
 };
 
 export const checkToken = (token) => {
-  return new Promise((resolve, reject) => {
-    if (token === "fake-jwt-token") {
-      const users = getStoredUsers();
-      const latestUser = users[users.length - 1];
-      resolve({ data: latestUser });
-    } else {
-      reject(new Error("Invalid token"));
-    }
-  });
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
 };
