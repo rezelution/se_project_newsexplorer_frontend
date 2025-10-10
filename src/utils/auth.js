@@ -2,7 +2,7 @@ import { checkResponse } from "./api";
 
 export const BASE_URL =
   import.meta.env.MODE === "production"
-    ? "https://api.heatcheck.blinklab.com"
+    ? "https://api.newsfinder5000.blinklab.com"
     : "http://localhost:3001";
 
 export const register = (email, password, name) => {

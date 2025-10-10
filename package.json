@@ -2,7 +2,7 @@
   "name": "newsexplorer_frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rezelution.github.io/se_project_newsexplorer_frontend/",
+  "homepage": "https://www.newsfinder5000.blinklab.com",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
