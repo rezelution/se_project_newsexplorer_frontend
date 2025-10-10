@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && cp public/newsexplorer-favicon.ico dist/ && scp -r ./dist/* rezelution@www.newsfinder5000.blinklab.com:/home/rezelution/frontend"
+    "deploy": "npm run build && cp public/favicon.ico dist/ && scp -r ./dist/* rezelution@www.newsfinder5000.blinklab.com:/home/rezelution/frontend"
   },
   "dependencies": {
     "react": "^19.1.0",
