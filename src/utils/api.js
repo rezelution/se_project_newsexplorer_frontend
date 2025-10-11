@@ -1,10 +1,15 @@
 const BASE_URL =
   import.meta.env.MODE === "production"
-    ? "https://newsfinder5000.blinklab.com"
+    ? "https://api.newsfinder5000.blinklab.com"
     : "http://localhost:3001";
 
 function checkResponse(res) {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  if (!res.ok) {
+    return res.text().then((text) => {
+      throw new Error(`HTTP ${res.status}: ${text}`);
+    });
+  }
+  return res.json();
 }
 
 function request(url, options) {
