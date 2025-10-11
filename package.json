@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && cp public/favicon.ico dist/ && scp -r ./dist/* rezelution@newsfinder5000.blinklab.com:/home/rezelution/frontend"
+    "deploy": "npm run build && cp public/favicon.ico dist/ && ssh rezelution@35.231.43.249 'cp -r /home/rezelution/frontend /home/rezelution/frontend-backup-$(date +%F-%H%M%S)' && scp -r ./dist/* rezelution@35.231.43.249:/home/rezelution/frontend && ssh rezelution@35.231.43.249 'sudo systemctl reload nginx'"
   },
   "dependencies": {
     "react": "^19.1.0",
