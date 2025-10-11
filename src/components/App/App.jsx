@@ -6,25 +6,17 @@ import Header from "../Header/header";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import About from "../About/about";
 import Footer from "../Footer/footer";
-
 import { SavedNews } from "../SavedNews/savedNews";
 import LogInModal from "../LoginModal/loginModal";
 import RegisterModal from "../RegisterModal/registerModal";
 import ConfirmationModal from "../ConfirmationModal/confirmationModal";
 import RegisterSuccessModal from "../RegisterSuccessModal/registerSuccessModal";
-
-import { getNewsArticles } from "../../utils/newsApi";
-import { filterNewsArticles } from "../../utils/newsApi";
-import { getSavedArticles, saveArticle } from "../../utils/api";
-import { checkToken } from "../../utils/auth";
-
-import { APIkey } from "../../utils/constants";
-
+import { getNewsArticles, filterNewsArticles } from "../../utils/newsApi";
+import { getSavedArticles, saveArticle, deleteItem } from "../../utils/api";
 import * as auth from "../../utils/auth";
-
 import AppContext from "../../contexts/AppContext";
-import { deleteItem } from "../../utils/api";
 import ProtectedRoute from "../../ProtectedRoute";
+import { APIkey } from "../../utils/constants";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,7 +48,7 @@ function App() {
   };
 
   const handleFormSearch = () => {
-    setVisibleCount(3); // reset to first 3 for new search
+    setVisibleCount(3);
     setSearchTerm(inputValue);
   };
 
@@ -99,7 +91,7 @@ function App() {
       .then(({ data, token }) => {
         if (token) {
           localStorage.setItem("jwt", token);
-          console.log("Token saved:", localStorage.getItem("jwt")); // Debug
+          console.log("Token saved:", localStorage.getItem("jwt"));
           setCurrentUser({ ...data, token });
           setIsLoggedIn(true);
           return getSavedArticles(token).then((res) => {
@@ -126,19 +118,14 @@ function App() {
       setActiveModal("sign-in");
       return;
     }
-
-    // Check if article already saved by unique url
     const alreadySaved = savedArticles.some(
       (savedArticle) => savedArticle.url === article.url
     );
-
     if (alreadySaved) {
       console.log("Article already saved");
       return;
     }
-
     const articleWithSearch = { ...article, keyword: searchTerm };
-
     saveArticle(articleWithSearch, currentUser.token)
       .then((saved) => {
         setSavedArticles((prev) => [...prev, saved.data]);
@@ -153,7 +140,6 @@ function App() {
       console.warn("Missing selected article or ID.");
       return;
     }
-
     deleteItem(selectedArticle._id, currentUser.token)
       .then(() => {
         setSavedArticles((prev) =>
@@ -170,33 +156,31 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
+      console.log("No token found in localStorage");
       setUserLoading(false);
       setIsLoggedIn(false);
       setCurrentUser(null);
       setSavedArticles([]);
       return;
     }
-    checkToken(token)
+    console.log("Token found:", token);
+    getSavedArticles(token)
       .then((res) => {
-        console.log("checkToken response:", res); // Debug
-        setCurrentUser({ ...res.data, token });
+        console.log("getSavedArticles response:", res);
+        setCurrentUser({ email: res.data[0]?.owner || "unknown", token });
         setIsLoggedIn(true);
-        return getSavedArticles(token).catch((err) => {
-          console.error("Failed to fetch saved articles:", err);
-          return { data: [] }; // Fallback
-        });
-      })
-      .then((res) => {
-        console.log("getSavedArticles response:", res); // Debug
         setSavedArticles(res.data);
       })
       .catch((err) => {
-        console.error("Token check failed:", err);
+        console.error("Authentication error:", err);
         if (err.message.includes("401")) {
+          console.log("401 error detected, clearing token");
           localStorage.removeItem("jwt");
           setIsLoggedIn(false);
           setCurrentUser(null);
           setSavedArticles([]);
+        } else {
+          console.log("Non-401 error, keeping user logged in");
         }
       })
       .finally(() => {
@@ -208,11 +192,9 @@ function App() {
     if (!searchTerm.trim()) return;
     setLoading(true);
     setError(null);
-
     getNewsArticles({ searchTerm, APIkey })
       .then((data) => {
         const filteredData = filterNewsArticles(data);
-
         const updatedArticles = filteredData.map((article) => {
           const saved = savedArticles.find(
             (savedArticle) => savedArticle.url === article.url
@@ -224,7 +206,6 @@ function App() {
             keyword: saved ? saved.keyword : searchTerm,
           };
         });
-
         setNewsArticles(updatedArticles);
       })
       .catch((err) => {
@@ -238,15 +219,12 @@ function App() {
 
   useEffect(() => {
     if (!activeModal) return;
-
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
         closeActiveModal();
       }
     };
-
     document.addEventListener("keydown", handleEscClose);
-
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
@@ -258,8 +236,6 @@ function App() {
         value={{ isLoggedIn, setIsLoggedIn, userLoading, currentUser }}
       >
         <div className="page__content">
-          {/* when components are rendered outside the routes they will show up on every page so they need to be rendered outside the routes 
-          by using useLocation from react router dom */}
           {location.pathname !== "/saved-news" && (
             <Header
               isLoggedIn={isLoggedIn}
@@ -280,9 +256,9 @@ function App() {
               <NewsCardList
                 searchTerm={searchTerm}
                 loading={loading}
-                newsArticles={newsArticles.slice(0, visibleCount)} // show only some
-                onShowMore={() => setVisibleCount((prev) => prev + 3)} // increase count
-                canShowMore={visibleCount < newsArticles.length} // check if more exist
+                newsArticles={newsArticles.slice(0, visibleCount)}
+                onShowMore={() => setVisibleCount((prev) => prev + 3)}
+                canShowMore={visibleCount < newsArticles.length}
                 totalArticles={newsArticles.length}
                 error={error}
                 isLoggedIn={isLoggedIn}
@@ -312,8 +288,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* uncomment below for testing  */}
-              {/* <Route path="/loader-test" element={<PreLoader />} /> */}
             </Routes>
           </main>
           <Footer handleHomeClick={handleHomeClick} />
