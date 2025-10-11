@@ -91,8 +91,10 @@ function App() {
       .then(({ data, token }) => {
         if (token) {
           localStorage.setItem("jwt", token);
+          localStorage.setItem("userName", data.name); // Store name
+          localStorage.setItem("userEmail", data.email); // Store email
           console.log("Token saved:", localStorage.getItem("jwt"));
-          setCurrentUser({ ...data, token });
+          setCurrentUser({ name: data.name, email: data.email, token });
           setIsLoggedIn(true);
           return getSavedArticles(token).then((res) => {
             setSavedArticles(res.data);
@@ -108,6 +110,8 @@ function App() {
 
   const handleLogOut = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("userName"); // Clear name
+    localStorage.removeItem("userEmail"); // Clear email
     setIsLoggedIn(false);
     setCurrentUser(null);
     navigate("/");
@@ -155,6 +159,8 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
+    const userName = localStorage.getItem("userName");
+    const userEmail = localStorage.getItem("userEmail");
     if (!token) {
       console.log("No token found in localStorage");
       setUserLoading(false);
@@ -167,7 +173,11 @@ function App() {
     getSavedArticles(token)
       .then((res) => {
         console.log("getSavedArticles response:", res);
-        setCurrentUser({ email: res.data[0]?.owner || "unknown", token });
+        setCurrentUser({
+          name: userName || "unknown",
+          email: userEmail || "unknown",
+          token,
+        });
         setIsLoggedIn(true);
         setSavedArticles(res.data);
       })
@@ -176,6 +186,8 @@ function App() {
         if (err.message.includes("401")) {
           console.log("401 error detected, clearing token");
           localStorage.removeItem("jwt");
+          localStorage.removeItem("userName");
+          localStorage.removeItem("userEmail");
           setIsLoggedIn(false);
           setCurrentUser(null);
           setSavedArticles([]);
