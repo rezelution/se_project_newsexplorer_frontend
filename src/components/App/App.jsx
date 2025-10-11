@@ -92,7 +92,7 @@ function App() {
       });
   };
 
-  handleLogin = ({ email, password }) => {
+  const handleLogin = ({ email, password }) => {
     if (!email || !password) return;
     auth
       .authorize(email, password)
@@ -113,6 +113,7 @@ function App() {
         console.error("Login failed:", err);
       });
   };
+
   const handleLogOut = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
