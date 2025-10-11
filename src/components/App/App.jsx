@@ -92,18 +92,16 @@ function App() {
       });
   };
 
-  const handleLogin = ({ email, password }) => {
+  handleLogin = ({ email, password }) => {
     if (!email || !password) return;
-
     auth
       .authorize(email, password)
       .then(({ data, token }) => {
         if (token) {
           localStorage.setItem("jwt", token);
+          console.log("Token saved:", localStorage.getItem("jwt")); // Debug
           setCurrentUser({ ...data, token });
           setIsLoggedIn(true);
-
-          // ✅ Fetch saved articles immediately after login
           return getSavedArticles(token).then((res) => {
             setSavedArticles(res.data);
             closeActiveModal();
@@ -115,7 +113,6 @@ function App() {
         console.error("Login failed:", err);
       });
   };
-
   const handleLogOut = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
@@ -171,7 +168,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-
     if (!token) {
       setUserLoading(false);
       setIsLoggedIn(false);
@@ -179,23 +175,28 @@ function App() {
       setSavedArticles([]);
       return;
     }
-
     checkToken(token)
       .then((res) => {
-        // Assuming your API returns user info inside res.data
+        console.log("checkToken response:", res); // Debug
         setCurrentUser({ ...res.data, token });
         setIsLoggedIn(true);
-        return getSavedArticles(token);
+        return getSavedArticles(token).catch((err) => {
+          console.error("Failed to fetch saved articles:", err);
+          return { data: [] }; // Fallback
+        });
       })
       .then((res) => {
+        console.log("getSavedArticles response:", res); // Debug
         setSavedArticles(res.data);
       })
       .catch((err) => {
-        console.error("Token check or fetching saved articles failed:", err);
-        localStorage.removeItem("jwt");
-        setIsLoggedIn(false);
-        setCurrentUser(null);
-        setSavedArticles([]);
+        console.error("Token check failed:", err);
+        if (err.message.includes("401")) {
+          localStorage.removeItem("jwt");
+          setIsLoggedIn(false);
+          setCurrentUser(null);
+          setSavedArticles([]);
+        }
       })
       .finally(() => {
         setUserLoading(false);
